@@ -7,7 +7,7 @@ For more information on this file, see
 https://github.com/shalomeir/snippod-boilerplate
 
 """
-from snippod_starter_demo_app_server.settings.common import *
+from backend.settings.common import *
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
@@ -57,7 +57,7 @@ TEMPLATES = [
 
 DATABASES = {
     'default': {
-        'ENGINE':'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': os.environ['RDS_DB_NAME'],
         'USER': os.environ['RDS_USERNAME'],
         'PASSWORD': os.environ['RDS_PASSWORD'],
@@ -110,7 +110,7 @@ AWS_S3_URL_PROTOCOL = 'http:'
 # STATICFILES_LOCATION = 'staticfiles'
 
 # CachedS3BotoStorage is our own custom storage.
-# STATICFILES_STORAGE = 'snippod_starter_demo_app_server.settings.custom_storages.CachedS3BotoStorage'
+# STATICFILES_STORAGE = 'backend.settings.custom_storages.CachedS3BotoStorage'
 # STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 # STATIC_URL = 'http://%s.s3.amazonaws.com/%s/' % (AWS_STORAGE_BUCKET_NAME, STATICFILES_LOCATION)
@@ -118,9 +118,10 @@ AWS_S3_URL_PROTOCOL = 'http:'
 # This setting is used on our custom storage to make
 # all Media files be stored in /media of our Bucket.
 MEDIAFILES_LOCATION = 'mediafiles'
-MEDIA_URL = "http://%s.s3.amazonaws.com/%s/" % (AWS_STORAGE_BUCKET_NAME, MEDIAFILES_LOCATION)
+MEDIA_URL = "http://%s.s3.amazonaws.com/%s/" % (
+    AWS_STORAGE_BUCKET_NAME, MEDIAFILES_LOCATION)
 # This is our custom Media Storage class.
-# DEFAULT_FILE_STORAGE = 'snippod_starter_demo_app_server.settings.custom_storages.MediaStorage'
+# DEFAULT_FILE_STORAGE = 'backend.settings.custom_storages.MediaStorage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 # Enable Compression on all Javascript and CSS used in template.
@@ -130,13 +131,13 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 # COMPRESS_ENABLED = True
 # COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter', 'compressor.filters.cssmin.CSSMinFilter']
 # This will ALWAYS be same as our STATICFILES_STORAGE setting.
-# COMPRESS_STORAGE = 'snippod_starter_demo_app_server.settings.custom_storages.CachedS3BotoStorage'
+# COMPRESS_STORAGE = 'backend.settings.custom_storages.CachedS3BotoStorage'
 # This will point to the same folder as all our static files. Since the compressed
 # versions will be uploaded there as well.
 # COMPRESS_URL = "http://%s.s3.amazonaws.com/%s/" % (AWS_STORAGE_BUCKET_NAME, STATICFILES_LOCATION)
 
 
-#MEDIA FILE (user uploaded files)
+# MEDIA FILE (user uploaded files)
 
 # TEMPLATE_DIRS = (
 #     os.path.join(BASE_DIR, 'djangoapps/templates'),

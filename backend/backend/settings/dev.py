@@ -7,8 +7,8 @@ For more information on this file, see
 https://github.com/shalomeir/snippod-boilerplate
 
 """
-from snippod_starter_demo_app_server.settings.common import *
-# from snippod_starter_demo_app_server.settings.config_dev import *
+from backend.settings.common import *
+# from backend.settings.config_dev import *
 
 
 # SECURITY WARNING: keep the secret key used in production secret!

@@ -8,13 +8,13 @@ import ecocases
 
 # from rest_framework.routers import DefaultRouter
 
-# from snippod_starter_demo_app_server.views import api_root
+# from backend.views import api_root
 
 # from rest_framework_nested import routers
 #
 # from authentication.views import AccountViewSet, LoginView, LogoutView
 # from postsold.views import AccountPostsViewSet, PostViewSet
-# from snippod_starter_demo_app_server.views import IndexView
+# from backend.views import IndexView
 #
 # router = routers.SimpleRouter()
 # router.register(r'accounts', AccountViewSet)
