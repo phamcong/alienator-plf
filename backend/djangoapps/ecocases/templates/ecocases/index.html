@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block script %}
+<!-- <script>
+$(document).ready(function(){
+    console.log("working")
+    $.ajax({
+        url: "/api/ecocases",    
+        method: "GET",
+        success: function(data){
+            $.each(data, function(key, value){
+                console.log(key);
+                console.log(value.ecocase_characters);
+                $("#ecocase-characters").append(value.ecocase_characters)
+            });
+       }
+    });
+});
+</script> -->
+{% endblock %}
+
+{% block content %}
+<!-- Display latest added ecocases -->
+    {% if ecocase_list %}
+        <div class="row">
+            {% for ecocase in ecocase_list %}
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center" id="header">
+                        <a href="{% url 'ecocases:detail' ecocase.id %}" class="ecocase-title">{{ ecocase.get_short_title }}</a><br>
+                        <div class="text-right" id="bottom-content">
+                            {% if ecocase.user.username %}
+                                <a href="{% url 'ecocases:profile' ecocase.user.username %}" class="text-right">by {{ ecocase.user.username }}</a>
+                            {% else %}
+                                <a href="#" class="text-right">by AnonymousUser</a>
+                            {% endif %}
+                        </div>                        
+                    </div>    
+                    <div class="panel-body">
+                        <div class="ecocase-image-list">
+                            {% if ecocase.first_image != '' %} 
+                                <img src="{% static ecocase.first_image %}" class="center-block displayed" alt="" height="300px">
+                            {% else %}
+                                <img src="{% static 'ecocases/no_visualization.png' %}" class="center-block displayed" alt="" height="300px">
+                            {% endif %}
+                        </div>                   
+                    </div>
+                </div>
+            </div>
+            {% if forloop.counter|divisibleby:3 %}
+            </div><div class="row">
+            {% endif %}
+            {% endfor %}
+        {% else %}
+        </div>
+        <p>No ecocases are available.</p>
+        {% endif %} 
+    </div>    
+    
+    <div class="text-right">
+        {% if request.user.id == None %}
+            <button type="button" class="btn btn-success"><a href="{% url 'mysite_login' %}">Login to create or upload</a></button>
+		{% else %}
+            <button type="button" class="btn btn-info"><a href="{% url 'ecocases:create' %}">Create</a></button>
+            <button type="button" class="btn btn-default"><a href="{% url 'ecocases:upload_json' %}">Upload</a></button>
+		{% endif %}
+    </div>
+    <!-- <a href="">Try</a>
+    <button type="button" class="btn"><a href="">Basic</a></button>
+    <button type="button" class="btn btn-default"><a href="">Basic</a>Default</button>
+    <button type="button" class="btn btn-primary"><a href="">Basic</a>Primary</button>
+    <button type="button" class="btn btn-success"><a href="">Basic</a>Success</button>
+    <button type="button" class="btn btn-info"><a href="">Basic</a>Info</button>
+    <button type="button" class="btn btn-warning"><a href="">Basic</a>Warning</button>
+    <button type="button" class="btn btn-danger"><a href="">Basic</a>Danger</button>
+    <button type="button" class="btn btn-link"><a href="">Basic</a>Link</button> -->
+{% endblock %}

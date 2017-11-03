@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% load crispy_forms_tags %}
+
+<!-- <form action="{% url 'ecocases:upload_image' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+    <p>
+        <input id="id_image" type="file" class="" name="image">
+    </p>
+    <input type="submit" value="Submit" />
+</form> -->
+
+
+
+
+{% block content %}
+<div class="container">
+    <form {% if form_id %} id={{ form_id }} {% endif %} class='form' action="{% if action_url %}{{ action_url }}{% endif %}" method="post" enctype="multipart/form-data" multiple> {% csrf_token %}
+        {{ form|crispy }}      
+        <div class="text-right">
+            <button class="btn btn-success btn-sm"> <span class="glyphicon glyphicon-upload" style="margin-right:5px;"></span>Upload</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

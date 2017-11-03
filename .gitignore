@@ -1,0 +1,68 @@
+env
+# ------------------------------ #
+# ----------- FRONTED ---------- #
+# ------------------------------ #
+frontend/.DS_Store
+frontend/.idea
+
+frontend/*.log
+frontend/.tmp
+
+frontend/node_modules/
+frontend/dist/
+frontend/semantic/dist/
+frontend/semantic/examples/
+frontend/semantic/Semantic-UI-Docs/
+frontend/!semantic/tasks/build
+
+frontend/_translations
+frontend/*.iml
+
+frontend/webpack-stats.json
+frontend/webpack-assets.json
+frontend/npm-debug.log
+frontend/auto_default_code/
+
+# Elastic Beanstalk Files
+frontend/.elasticbeanstalk/*
+frontend/!.elasticbeanstalk/*.cfg.yml
+frontend/!.elasticbeanstalk/*.global.yml
+
+# ------------------------------ #
+# ----------- BACKEND ---------- #
+# ------------------------------ #
+backend/.DS_Store
+backend/.idea
+
+*.iml
+backend/auto_default_code/
+
+# python fabric
+backend/fabric/
+backend/fabfile/
+
+# django migrations
+backend/djangoapps/*/migrations
+
+# Python compiled byte code
+backend/*.pyc
+
+# SQLite3 database
+backend/*.sqlite3
+
+# Staticfiles
+backend/staticfiles/
+
+# vrtualenv
+backend/venv/
+
+#backup
+backend/backup/
+
+#log
+backend/logs/*.log
+
+# Elastic Beanstalk Files
+backend/.elasticbeanstalk/*
+backend/!.elasticbeanstalk/*.cfg.yml
+backend/!.elasticbeanstalk/*.global.yml

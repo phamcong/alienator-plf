@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load ecocase_extras %}
+
+{% block content %}
+<!-- Display ecocase by id -->
+<div class="panel panel-default">
+	<div class="panel-heading text-center"><h4>{{ ecocase.title }}</h4></div>
+	<!-- <div class="panel-heading">
+			<h3 class="panel-title"><a href="{% url 'ecocases:detail' ecocase.id %}">{{ ecocase.title }}</a></h3>
+	</div> -->
+	<div class="panel-body">
+		<div class="row top-buffer">
+				<div class="col-md-4">
+					<div class="panel panel-default">
+						<div class="panel-heading">Visualization</div>
+						<div class="panel-body">
+							<div class="cover-container">
+								<ul class="list-inline">
+									{% if ecocase.ecocaseimage_set.all != '' %}
+										{% for image in ecocase.ecocaseimage_set.all %}
+											<div class="cover-item">
+												<img src="{% static image %}" class="center-block" alt="" height="250px">
+											</div>										
+										{% endfor %}
+									{% else %}
+										<div class="cover-item">
+											<img src="{% static 'ecocases/no_visualization.png' %}" class="center-block" alt="" height="250px">
+										</div>
+									{% endif %}									
+								</ul>           
+							</div>  
+						</div>
+					</div>					          
+				</div>					
+				<div class="col-md-8 characters-area">
+					<div class="panel panel-default">
+						<div class="panel-heading">Promise</div>
+						<div class="panel-body">
+							{% autoescape off %}{{ ecocase.promise }}{% endautoescape %}
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">Usage</div>
+						<div class="panel-body">
+							{% autoescape off %}{{ ecocase.usage }}{% endautoescape %}
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">Organization</div>
+						<div class="panel-body">
+							{% autoescape off %}{{ ecocase.organization }}{% endautoescape %}
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">Economic transaction</div>
+						<div class="panel-body">
+							{% autoescape off %}{{ ecocase.economic_transaction }}{% endautoescape %}
+						</div>
+					</div>
+				</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6 evaluation-div">
+				<div class="panel panel-default">
+					<div class="panel-heading">Evaluation</div>
+					<div class="panel-body">
+						<div class="row">
+								<div class="col-md-8">Reference</div>
+								<div class="col-md-4">{{ ecocase.reference }}</div>
+						</div>
+						<div class="row">
+								<div class="col-md-8">Direct environmental gain</div>
+								<div class="col-md-4">{{ ecocase.direct_environmental_gain }}</div>
+						</div>
+						<div class="row">
+								<div class="col-md-8">Indirect environmental gain</div>
+								<div class="col-md-4">{{ ecocase.indirect_environmental_gain }}</div>
+						</div>
+						<div class="row">
+								<div class="col-md-8">Provent cas or projet/ Price</div>
+								<div class="col-md-4">{{ ecocase.proven_cas_or_project }}</div>
+						</div>
+						<div class="row">
+								<div class="col-md-8">Attractiveness/ Price</div>
+								<div class="col-md-4">{{ ecocase.attractiveness_price }}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 evaluation-div">
+				<div class="panel panel-default">
+					<div class="panel-heading">Revelant mechanisms</div>
+					<div class="panel-body">
+						<div class="row">
+								<div class="col-md-6">Main route</div>
+								<div class="col-md-6">{{ ecocase.reference }}</div>
+						</div>
+						<div class="row">
+								<div class="col-md-6">Secondary route</div>
+								<div class="col-md-6">{{ ecocase.direct_environmental_gain }}</div>
+						</div>	
+					</div>
+				</div>
+			</div>
+		</div>
+		<hr>
+		<div class="panel panel-default">
+			<div class="panel-heading">Associated mechanisms</div>	
+			<div class="panel-body">
+				{% if ecocase.esm_set.all %}
+					{% for esm in ecocase.esm_set.all %}
+						<div class="row top-buffer">
+							<div class="col-md-8">	
+								{{ esm.get_title }}						
+							</div>
+							<div class="col-md-4 text-right">
+								{{ esm.get_vote_point_total }} vote{{ esm.get_vote_point_total|pluralize }}
+							</div>
+						</div>
+					{% endfor %}
+				{% endif %}
+			</div>
+		</div>		 
+		<div class="panel panel-default">
+			<div class="panel-heading pull-right">
+				<a href="{% url 'ecocases:upload_image' ecocase.id %}">Upload more images?</a>
+			</div>
+		</div>     		
+	</div>  
+</div>
+<div class="text-right">
+	<button type="button" class="btn btn-primary"><a href="{% url 'ecocases:index' %}">Back to list</a></button>
+	{% if ecocase.user == request.user %}
+		<button type="button" class="btn btn-default"><a href="{% url 'ecocases:update' ecocase.id %}">Update</a></button>
+		<button type="button" class="btn btn-danger"><a href="{% url 'ecocases:delete' ecocase.id %}">Delete</a></button>
+	{% endif %}
+	{% if request.user.id == None %}
+		<button type="button" class="btn btn-success"><a href="{% url 'mysite_login' %}">Login to vote</a></button>	
+	{% elif ecocase|is_voted:request.user.id %}
+		<button type="button" class="btn btn-success"><a href="{% url 'ecocases:vote' ecocase.id %}">Vote again?</a></button>
+	{% else %}
+		<button type="button" class="btn btn-success"><a href="{% url 'ecocases:vote' ecocase.id %}">Vote</a></button>
+	{% endif %}
+</div>
+{% endblock %}
+

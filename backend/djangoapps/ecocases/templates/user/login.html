@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<h1>Login</h1>
+<form action="." method="post">
+    {% csrf_token %}
+    {{ crispy form }}
+    <input type="submit" value="Submit">
+</form>
+{% if form.non_field_errors %}
+    <ul class="form-errors">
+        {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+<!-- {% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %} -->
+{%  endblock %}

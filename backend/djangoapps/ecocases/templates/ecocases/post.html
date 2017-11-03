@@ -1,0 +1,42 @@
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'ecocases/bootstrap/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'ecocases/css/ecocases.css' %}">
+    <script src="{% static 'ecocases/js/tinymce/tinymce.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'ecocases/js/tinymce/custom.js' %}" ></script>
+    <script type="text/javascript">
+    tinymce.init({
+        selector: '#mytextarea'
+    });
+    </script>
+</head>
+
+<body>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">Create new ecocase</h4>
+        </div>
+        <br>
+        <div class="panel-body">
+            <form method="post" enctype="multipart/form-data" multiple> {% csrf_token %}
+                <head>
+                    {{ form|crispy }}
+                </head>                
+                <br>
+                <div class="text-right">
+                    <input type="submit" class="btn btn-primary" value="Create" class=""/>
+                </div>
+            </form>
+        </div>
+    </div>
+    <form method="post">
+        <textarea id="mytextarea">Hello, World!</textarea>
+        <textarea id="abc">Hello, World!</textarea>
+        First name: <input type="text" name="fname"><br>
+    </form>
+</body>
+</html>
