@@ -57,7 +57,7 @@ const styles = require('./EcocaseComposerStyles');
 )
 @reduxForm({
   form: 'ecocase',
-  fields: ['title', 'link', 'promise'],
+  fields: ['title', 'promise', 'usage', 'organization'],
   validate: ecocaseValidation
 })
 @injectIntl
@@ -135,16 +135,16 @@ export default class EcocaseComposer extends Component {
         .transition('hide');
     }
 
-    //Show up link Field error message
-    if (this.props.fields.link.dirty && this.props.errors.link && !$('.ui.link.label').transition('is visible')) {
-      $('.ui.link.pointing.label')
-        .transition('fade up');
-    }
-    //Hide link Field error message
-    if (prevProps.errors.link && !this.props.errors.link && $('.ui.link.label').transition('is visible')) {
-      $('.ui.link.pointing.label')
-        .transition('hide');
-    }
+    // //Show up link Field error message
+    // if (this.props.fields.link.dirty && this.props.errors.link && !$('.ui.link.label').transition('is visible')) {
+    //   $('.ui.link.pointing.label')
+    //     .transition('fade up');
+    // }
+    // //Hide link Field error message
+    // if (prevProps.errors.link && !this.props.errors.link && $('.ui.link.label').transition('is visible')) {
+    //   $('.ui.link.pointing.label')
+    //     .transition('hide');
+    // }
   }
 
   @throttle(1000)
@@ -165,11 +165,15 @@ export default class EcocaseComposer extends Component {
         dispatch(insertEcocaseToEcocasesPagination(response.result));
         resolve(response);
       }).catch((error) => {
-        const errors = {};
-        if (error.errors.title) errors.title = error.errors.title[0];
-        if (error.errors.link) errors.link = error.errors.link[0];
-        if (error.message) errors._error = error.message;
-        reject(errors);
+        if (error.errors) {
+          const errors = {};
+          if (error.errors.title) errors.title = error.errors.title[0];
+          if (error.errors.promise) errors.promise = error.errors.promise[0];
+          if (error.errors.usage) errors.usage = error.errors.usage[0];
+          if (error.errors.organization) errors.organization = error.errors.organization[0];
+          if (error.message) errors._error = error.message;
+          reject(errors);
+        }
       });
     });
   }
@@ -196,7 +200,7 @@ export default class EcocaseComposer extends Component {
   }
 
   render() {
-    const { auth, style, intl: { formatMessage }, error, errors, fields: { title, link, promise }, handleSubmit, invalid,
+    const { auth, style, intl: { formatMessage }, error, errors, fields: { title, promise, usage, organization }, handleSubmit, invalid,
       submitting } = this.props;
     const { changed } = this.state;
 
@@ -227,19 +231,43 @@ export default class EcocaseComposer extends Component {
                   </div>
                 </div>
                 <div className="ui title pointing red basic small label transition hidden" style={styles.errorText}>
-                  { errors.title && errors.title.id ? <FormattedMessage {...errors.title} /> : errors.title ? errors.title : null}
+                  { errors.title && errors.title.id ? <FormattedMessage {...errors.title} /> : errors.title ? errors.title : null }
                 </div>
               </div>
 
-              <div className={classNames('field', { 'error': (title && title.invalid && changed) })} style={styles.titleField}>
+              <div className={classNames('field', { 'error': (promise && promise.invalid && changed) })} style={styles.promiseField}>
                 <div className="ui form">
                   <div className="field">
                     <label>Promise</label>
-                    <textarea rows="2" name="title" ref="title" {...title} style={styles.titleInput}></textarea>
+                    <textarea rows="2" name="promise" ref="promise" {...promise} style={styles.promiseInput}></textarea>
                   </div>
                 </div>
                 <div className="ui title pointing red basic small label transition hidden" style={styles.errorText}>
-                  { errors.title && errors.title.id ? <FormattedMessage {...errors.title} /> : errors.title ? errors.title : null}
+                  { errors.promise && errors.promise.id ? <FormattedMessage {...errors.promise} /> : errors.promise ? errors.promise : null }
+                </div>
+              </div>
+
+              <div className={classNames('field', { 'error': (usage && usage.invalid && changed) })} style={styles.usageField}>
+                <div className="ui form">
+                  <div className="field">
+                    <label>Usage</label>
+                    <textarea rows="2" name="usage" ref="usage" {...usage} style={styles.usageInput}></textarea>
+                  </div>
+                </div>
+                <div className="ui title pointing red basic small label transition hidden" style={styles.errorText}>
+                  { errors.usage && errors.usage.id ? <FormattedMessage {...errors.usage} /> : errors.usage ? errors.usage : null }
+                </div>
+              </div>
+
+              <div className={classNames('field', { 'error': (organization && organization.invalid && changed) })} style={styles.organizationField}>
+                <div className="ui form">
+                  <div className="field">
+                    <label>Organization</label>
+                    <textarea rows="2" name="organization" ref="organization" {...organization} style={styles.organizationInput}></textarea>
+                  </div>
+                </div>
+                <div className="ui title pointing red basic small label transition hidden" style={styles.errorText}>
+                  { errors.organization && errors.organization.id ? <FormattedMessage {...errors.organization} /> : errors.organization ? errors.organization : null }
                 </div>
               </div>
             </div>

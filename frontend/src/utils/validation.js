@@ -99,7 +99,7 @@ export function isFuncWork(func) {
 }
 
 export function url(value) {
-  if (!value) return i18n.invaludUrl;
+  if (!value) return i18n.invalidUrl;
   const httpUrl = addhttp(value);
   if (!validator.isURL(httpUrl, { protocols: ['http', 'https'], allow_underscores: true })) {
     return i18n.invalidUrl;

@@ -7,13 +7,13 @@ const styles = {
   },
 
   titleField: {
-    padding: '0.5em 0.5em',
+    // padding: '0.5em 0.5em',
     marginBottom: 0
   },
 
   titleInput: {
     fontWeight: 'bold',
-    fontSize: '1.2em',
+    fontSize: '1em',
     padding: '0.6em 0.6em'
   },
 

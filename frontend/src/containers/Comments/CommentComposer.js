@@ -48,7 +48,7 @@ const styles = require('./CommentComposerStyles');
   { showLoginDialog }
 )
 @reduxForm({
-  form: 'post',
+  form: 'ecocase',
   fields: ['content'],
   validate: commentValidation
 })
@@ -59,8 +59,8 @@ export default class CommentComposer extends Component {
   static propTypes = {
     auth: PropTypes.object.isRequired,
     style: PropTypes.object,
-    postId: PropTypes.number.isRequired,
-    loadPost: PropTypes.func,
+    ecocaseId: PropTypes.number.isRequired,
+    loadEcocase: PropTypes.func,
     intl: intlShape.isRequired,
     showLoginDialog: PropTypes.func.isRequired,
 
@@ -131,7 +131,8 @@ export default class CommentComposer extends Component {
   @throttle(1000)
   _submitComment(values, dispatch) {
     this.props.initializeForm();
-    const submitCommentForm = Object.assign(values, { postId: this.props.postId });
+    const submitCommentForm = Object.assign(values, { ecocaseId: this.props.ecocaseId });
+    console.log(submitCommentForm);
     return new Promise((resolve, reject) => {
       dispatch(
         submitComment(submitCommentForm)
@@ -143,7 +144,7 @@ export default class CommentComposer extends Component {
           body: toastMessages.submitCommentBody
         }));
         dispatch(insertCommentToCommentsPagination(response.result));
-        this.props.loadPost(this.props.postId);
+        this.props.loadEcocase(this.props.ecocaseId);
         resolve(response);
       }).catch((error) => {
         const errors = {};
@@ -190,7 +191,7 @@ export default class CommentComposer extends Component {
     );
 
     return (
-      <div className="post-composer ui container" style={[style]} >
+      <div className="ecocase-composer ui container" style={[style]} >
         <form className={classNames('comment-composer-form ui reply content', { 'error': (invalid && changed) })} onSubmit={handleSubmit(this._onSubmit)}>
           <div className="ui inverted dimmer">
             <div className="content">

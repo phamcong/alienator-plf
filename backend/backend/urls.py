@@ -32,7 +32,8 @@ urlpatterns = [
     # url(r'^api/v1/', api_root),
     # url(r'^api/v1/', include(router.urls)),
     url(r'^api/v1/', include('authentication.urls')),
-    url(r'^api/v1/', include('posts.urls')),
+    # url(r'^api/v1/', include('posts.urls')),
+    url(r'^api/v1/', include('ecocases.urls')),
     url(r'^ecocases/', include('ecocases.urls',
                                namespace='ecocases', app_name='ecocases')),
 

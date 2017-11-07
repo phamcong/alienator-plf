@@ -40,7 +40,7 @@ class EcocaseQuerySet(models.QuerySet):
 #     dir
 
 class Ecocase(models.Model):
-    author = models.ForeignKey(Account)
+    author = models.ForeignKey(Account, null=True)
 
     title = models.CharField(max_length=200)
 
@@ -56,7 +56,8 @@ class Ecocase(models.Model):
     proven_cas_or_project = models.CharField(
         max_length=20, choices=case_type_choices, default='project')
 
-    created_at = models.DateTimeField(db_index=True, auto_now_add=True)
+    created_at = models.DateTimeField(
+        db_index=True, auto_now_add=True, null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     objects = models.Manager()
@@ -106,8 +107,7 @@ class Ecocase(models.Model):
 
 class CommentQuerySet(models.QuerySet):
     def upvotes(self):
-        return self.annotate(Count('commentupvote'))\
-            .order_by('-commentupvote__count', '-created_at')
+        return self.annotate(Count('commentupvote')).order_by('-commentupvote__count', '-created_at')
 
     def newest(self):
         return self.order_by('-created_at')

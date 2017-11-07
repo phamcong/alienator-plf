@@ -81,7 +81,7 @@ export default class Ecocase extends Component {
 
   render() {
     const { ecocase, intl: { formatMessage, locale }, style, disabledSelfLink } = this.props;
-    const ecocaseLink = getHostPathFromUrl(ecocase.link);
+    // const ecocaseLink = getHostPathFromUrl(ecocase.link);
 
     const meLabel = (
       <div className="ui top right attached animated fade button label" type="button"
@@ -111,14 +111,14 @@ export default class Ecocase extends Component {
           </div>
         </Link>
         <div className="content" style={styles.mainContent}>
-          <div className="link-button ui center aligned container" style={styles.linkButtonContainer}>
+          {/* <div className="link-button ui center aligned container" style={styles.linkButtonContainer}>
             <a className="ui labeled icon blue basic button"
                href={ecocase.link} target="_blank" style={styles.linkButton}>
               <i className="linkify icon" />
               {shortenString(ecocaseLink, 29)}
               {ecocaseLink.length > 29 ? (<span className="after-gradient-effect" />) : null}
             </a>
-          </div>
+          </div> */}
           <Link className="user" to={'/user/' + ecocase.author.id}>
             <i className="user circular inverted blue user small icon" />
             {shortenString(ecocase.author.username, 13)}

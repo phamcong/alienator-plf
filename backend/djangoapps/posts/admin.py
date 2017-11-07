@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from django.contrib import admin
 from django.utils.translation import ugettext, ugettext_lazy as _
 
-from posts.models import Post, Comment, PostUpvote, CommentUpvote
+from posts.models import Post, CommentPost, PostUpvote, CommentPostUpvote
 
 
 # Register your models here.
@@ -21,6 +21,6 @@ class PostAdmin(admin.ModelAdmin):
 
 # Now register the new Admin...
 admin.site.register(Post, PostAdmin)
-admin.site.register(Comment)
+admin.site.register(CommentPost)
 admin.site.register(PostUpvote)
-admin.site.register(CommentUpvote)
+admin.site.register(CommentPostUpvote)

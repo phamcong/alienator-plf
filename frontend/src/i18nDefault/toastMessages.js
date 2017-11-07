@@ -69,24 +69,24 @@ const toastMessages = defineMessages({
     defaultMessage: 'Your account were deleted.' //empty
   },
 
-  //in containers/Posts/PostComposer
-  submitPostTitle: {
-    id: 'toast.submitPostTitle',
-    defaultMessage: 'Posting Succeed'
+  //in containers/Posts/EcocaseComposer
+  submitEcocaseTitle: {
+    id: 'toast.submitEcocaseTitle',
+    defaultMessage: 'Ecocase Succeed'
   },
-  submitPostBody: {
-    id: 'toast.submitPostBody',
-    defaultMessage: '\'{postTitle}\' is posted.' //empty
+  submitEcocaseBody: {
+    id: 'toast.submitEcocaseBody',
+    defaultMessage: '\'{ecocaseTitle}\' is posted.' //empty
   },
 
-  //in ducks/postings/posts
-  deletePostTitle: {
-    id: 'toast.deletePostTitle',
-    defaultMessage: 'Post Deleted'
+  //in ducks/postings/ecocases
+  deleteEcocaseTitle: {
+    id: 'toast.deleteEcocaseTitle',
+    defaultMessage: 'Ecocase Deleted'
   },
-  deletePostBody: {
-    id: 'toast.deletePostBody',
-    defaultMessage: '\'{postTitle}\' is deleted.' //empty
+  deleteEcocaseBody: {
+    id: 'toast.deleteEcocaseBody',
+    defaultMessage: '\'{ecocaseTitle}\' is deleted.' //empty
   },
 
   //in containers/Comments/CommentComposer
@@ -99,7 +99,7 @@ const toastMessages = defineMessages({
     defaultMessage: 'Your reply is added.' //empty
   },
 
-  //in ducks/postings/posts
+  //in ducks/postings/ecocases
   deleteCommentTitle: {
     id: 'toast.deleteCommentTitle',
     defaultMessage: 'Comment Deleted'

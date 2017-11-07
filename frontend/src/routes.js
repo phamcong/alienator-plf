@@ -9,6 +9,7 @@ import {
   NotFound,
   Ground,
   Home,
+  SingleEcocase,
   SinglePost,
   User,
   Setting
@@ -57,6 +58,7 @@ export default (store) => {
       <IndexRoute component={Home}/>
 
       <Route path="/post/:postId" component={SinglePost} />
+      <Route path="/ecocase/:ecocaseId" component={SingleEcocase} />
       <Route path="/user/:userId" component={User} />
 
       { /* Routes requiring login */ }

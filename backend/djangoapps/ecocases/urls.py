@@ -12,7 +12,7 @@ router.register(r'user/(?P<userid>[0-9]+)/ecocases', UserEcocaseViewSet,
                 base_name='user-ecocase-list')
 router.register(r'user/(?P<userid>[0-9]+)/comments', UserCommentViewSet,
                 base_name='user-comment-list')
-router.register(r'ecocase/(?P<postid>[0-9]+)/comments', EcocaseCommentViewSet,
+router.register(r'ecocase/(?P<ecocaseid>[0-9]+)/comments', EcocaseCommentViewSet,
                 base_name='ecocase-comment-list')
 router.register(r'comments', CommentViewSet, base_name='comment')
 

@@ -61,7 +61,9 @@ export function submitEcocase(submitEcocaseForm) {
     promise: (client) => client.post('/ecocases/', {
       data: {
         title: submitEcocaseForm.title,
-        link: submitEcocaseForm.link
+        promise: submitEcocaseForm.promise,
+        usage: submitEcocaseForm.usage,
+        organization: submitEcocaseForm.organization
       },
       schema: Schemas.ECOCASE
     })

@@ -3,11 +3,12 @@ from rest_framework.serializers import HyperlinkedRelatedField
 
 from authentication.serializers import UserSerializer
 from authentication.models import Account
-from posts.models import Post, Comment, PostUpvote, CommentUpvote
+from posts.models import Post, CommentPost, PostUpvote, CommentPostUpvote
 
 
 class PostSerializer(serializers.ModelSerializer):
-    author = UserSerializer(default=serializers.CurrentUserDefault(), read_only=True)
+    author = UserSerializer(
+        default=serializers.CurrentUserDefault(), read_only=True)
 
     class Meta:
         model = Post
@@ -17,12 +18,12 @@ class PostSerializer(serializers.ModelSerializer):
                             'comment_count', 'upvote_count')
 
     def to_representation(self, obj):
-        returnObj = super(PostSerializer,self).to_representation(obj)
+        returnObj = super(PostSerializer, self).to_representation(obj)
         is_upvoted_me = False
         is_author_me = False
         if isinstance(self.context['request'].user, Account):
             is_upvoted_me = obj.postupvote_set.filter(
-                                voter=self.context['request'].user).exists()
+                voter=self.context['request'].user).exists()
             is_author_me = obj.author == self.context['request'].user
 
         newObj = {
@@ -33,17 +34,18 @@ class PostSerializer(serializers.ModelSerializer):
         return returnObj
 
 
-class CommentSerializer(serializers.ModelSerializer):
-    author = UserSerializer(default=serializers.CurrentUserDefault(), read_only=True)
+class CommentPostSerializer(serializers.ModelSerializer):
+    author = UserSerializer(
+        default=serializers.CurrentUserDefault(), read_only=True)
 
     class Meta:
-        model = Comment
+        model = CommentPost
         fields = ('id', 'post', 'author', 'content', 'created_at', 'updated_at',
                   'upvote_count')
         read_only_fields = ('id', 'created_at', 'updated_at', 'upvote_count')
 
     def to_representation(self, obj):
-        returnObj = super(CommentSerializer,self).to_representation(obj)
+        returnObj = super(CommentPostSerializer, self).to_representation(obj)
         is_upvoted_me = False
         is_author_me = False
         if isinstance(self.context['request'].user, Account):
@@ -60,7 +62,8 @@ class CommentSerializer(serializers.ModelSerializer):
 
 
 class PostUpvoteSerializer(serializers.ModelSerializer):
-    voter = UserSerializer(default=serializers.CurrentUserDefault(), read_only=True)
+    voter = UserSerializer(
+        default=serializers.CurrentUserDefault(), read_only=True)
 
     class Meta:
         model = PostUpvote
@@ -68,11 +71,11 @@ class PostUpvoteSerializer(serializers.ModelSerializer):
         read_only_fields = ('id', 'created_at')
 
 
-class CommentUpvoteSerializer(serializers.ModelSerializer):
-    voter = UserSerializer(default=serializers.CurrentUserDefault(), read_only=True)
+class CommentPostUpvoteSerializer(serializers.ModelSerializer):
+    voter = UserSerializer(
+        default=serializers.CurrentUserDefault(), read_only=True)
 
     class Meta:
-        model = CommentUpvote
+        model = CommentPostUpvote
         fields = ('id', 'comment', 'voter', 'created_at')
         read_only_fields = ('id', 'created_at')
-

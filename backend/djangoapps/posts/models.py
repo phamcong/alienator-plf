@@ -6,14 +6,14 @@ from authentication.models import Account
 class PostQuerySet(models.QuerySet):
     def upvotes(self):
         return self.annotate(Count('postupvote'))\
-            .order_by('-postupvote__count','-created_at')
+            .order_by('-postupvote__count', '-created_at')
 
     def newest(self):
         return self.order_by('-created_at')
 
-    def comments(self):
-        return self.annotate(Count('comment'))\
-            .order_by('-comment__count','-created_at')
+    def commentposts(self):
+        return self.annotate(Count('commentpost'))\
+            .order_by('-commentpost__count', '-created_at')
 
 
 class Post(models.Model):
@@ -30,9 +30,9 @@ class Post(models.Model):
     def __str__(self):
         return '{0}'.format(self.title)
 
-    def _get_comment_count(self):
-        return self.comment_set.count()
-    comment_count = property(_get_comment_count)
+    def _get_commentpost_count(self):
+        return self.commentpost_set.count()
+    commentpost_count = property(_get_commentpost_count)
 
     def _get_upvote_count(self):
         return self.postupvote_set.count()
@@ -44,14 +44,14 @@ class Post(models.Model):
 
 class CommentQuerySet(models.QuerySet):
     def upvotes(self):
-        return self.annotate(Count('commentupvote'))\
-            .order_by('-commentupvote__count','-created_at')
+        return self.annotate(Count('commentpostupvote'))\
+            .order_by('-commentpostupvote__count', '-created_at')
 
     def newest(self):
         return self.order_by('-created_at')
 
 
-class Comment(models.Model):
+class CommentPost(models.Model):
     post = models.ForeignKey(Post)
     author = models.ForeignKey(Account)
     content = models.CharField(max_length=110)
@@ -65,7 +65,7 @@ class Comment(models.Model):
         return '{0}'.format(self.content)
 
     def _get_upvote_count(self):
-        return self.commentupvote_set.count()
+        return self.commentpostupvote_set.count()
     upvote_count = property(_get_upvote_count)
 
     class Meta:
@@ -81,12 +81,10 @@ class PostUpvote(models.Model):
         unique_together = ('post', 'voter')
 
 
-class CommentUpvote(models.Model):
-    comment = models.ForeignKey(Comment)
+class CommentPostUpvote(models.Model):
+    commentpostpost = models.ForeignKey(CommentPost)
     voter = models.ForeignKey(Account)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ('comment', 'voter')
-
-
+        unique_together = ('commentpostpost', 'voter')
